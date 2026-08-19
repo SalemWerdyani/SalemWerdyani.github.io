@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salem Werdyani, Ph.D., Human Genetics · Bioinformatics · Statistical Genomics</title>
+<meta name="description" content="Salem Werdyani, Ph.D., Lead Scientist, Institute for Population and Precision Health, University of Chicago. Human genetics, bioinformatics, statistical genomics, and multi-omics research.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2310161B'/%3E%3Cpath d='M9 6c0 8 14 12 14 20M23 6c0 8-14 12-14 20' stroke='%231E7A72' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10161B;
+    --ink-soft:#1B2329;
+    --paper:#EFEBE1;
+    --paper-dim:#E5E0D2;
+    --teal:#1E7A72;
+    --teal-bright:#2E9C92;
+    --crimson:#B2392B;
+    --gold:#B8860B;
+    --slate:#5B6570;
+    --line: rgba(16,22,27,0.12);
+    --line-dark: rgba(239,235,225,0.16);
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Inter', -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --max: 1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em;}
+  :focus-visible{outline:2.5px solid var(--teal-bright); outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(239,235,225,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:var(--max); margin:0 auto;
+  }
+  .nav-name{font-family:var(--font-display); font-weight:600; font-size:18px;}
+  .nav-links{display:flex; gap:26px; list-style:none; margin:0; padding:0; font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.04em;}
+  .nav-links a{text-decoration:none; color:var(--slate); transition:color .15s;}
+  .nav-links a:hover{color:var(--teal);}
+  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .nav-toggle span{display:block; width:22px; height:2px; background:var(--ink); margin:4px 0;}
+  @media (max-width:760px){
+    .nav-links{position:fixed; inset:60px 0 auto 0; background:var(--paper); flex-direction:column; padding:20px 28px; gap:16px; border-bottom:1px solid var(--line); transform:translateY(-8px); opacity:0; pointer-events:none; transition:.2s;}
+    .nav-links.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--ink);
+    color:var(--paper);
+    overflow:hidden;
+  }
+  .hero-scatter{position:absolute; inset:0; opacity:0.5;}
+  .hero-inner{
+    position:relative; z-index:2;
+    max-width:var(--max); margin:0 auto; padding:88px 28px 84px;
+    display:grid; grid-template-columns:1.2fr 0.8fr; gap:56px; align-items:center;
+  }
+  .hero h1{font-size:clamp(38px,5.4vw,64px); line-height:1.03; color:var(--paper);}
+  .hero h1 em{font-style:italic; color:var(--teal-bright);}
+  .hero-role{font-family:var(--font-mono); font-size:14px; color:var(--paper); opacity:.72; margin-top:18px; letter-spacing:.02em;}
+  .hero-tagline{margin-top:22px; max-width:52ch; color:var(--paper); opacity:.86; font-size:17px;}
+  .hero-ctas{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:.03em;
+    padding:12px 20px; border-radius:3px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px; transition:.15s;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--teal); color:#fff;}
+  .btn-primary:hover{background:var(--teal-bright);}
+  .btn-ghost{border-color:rgba(239,235,225,0.4); color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--paper); background:rgba(239,235,225,0.08);}
+  .hero-portrait{
+    justify-self:center;
+    width:100%; max-width:300px; aspect-ratio:3/4;
+    border-radius:6px; overflow:hidden;
+    border:1px solid rgba(239,235,225,0.18);
+    box-shadow:0 30px 70px rgba(0,0,0,0.45);
+  }
+  .hero-portrait img{width:100%; height:100%; object-fit:cover;}
+  .hero-links{display:flex; gap:18px; margin-top:30px; flex-wrap:wrap;}
+  .hero-links a{font-family:var(--font-mono); font-size:12.5px; text-decoration:none; color:var(--paper); opacity:.75; border-bottom:1px solid rgba(239,235,225,0.3); padding-bottom:2px; transition:.15s;}
+  .hero-links a:hover{opacity:1; border-color:var(--teal-bright); color:var(--teal-bright);}
+  @media (max-width:820px){
+    .hero-inner{grid-template-columns:1fr; padding-top:64px;}
+    .hero-portrait{order:-1; max-width:200px;}
+  }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{padding:86px 0;}
+  section.alt{background:var(--paper-dim);}
+  .section-head{margin-bottom:46px; max-width:60ch;}
+  .section-head h2{font-size:clamp(26px,3vw,34px); margin-top:10px;}
+  .section-head p{color:var(--slate); margin-top:14px; font-size:15.5px;}
+
+  /* ---------- LOCUS MAP (career timeline) ---------- */
+  .locus-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  .locus-card{background:var(--paper); padding:30px 26px;}
+  .locus-card .tag{font-family:var(--font-mono); font-size:11px; color:var(--crimson); letter-spacing:.06em;}
+  .locus-card h3{font-size:19px; margin-top:12px; font-weight:500;}
+  .locus-card p{color:var(--slate); font-size:14.5px; margin-top:10px;}
+  @media (max-width:900px){.locus-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.locus-grid{grid-template-columns:1fr;}}
+
+  /* ---------- FOCUS CARDS ---------- */
+  .focus-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  .focus-card{background:var(--paper); padding:30px 26px;}
+  .focus-card .tag{font-family:var(--font-mono); font-size:11px; color:var(--teal); letter-spacing:.06em;}
+  .focus-card h3{font-size:19px; margin-top:12px; font-weight:500;}
+  .focus-card p{color:var(--slate); font-size:14.5px; margin-top:10px;}
+  @media (max-width:900px){.focus-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.focus-grid{grid-template-columns:1fr;}}
+
+  /* ---------- EXPERIENCE ---------- */
+  .role{display:grid; grid-template-columns:210px 1fr; gap:32px; padding:28px 0; border-top:1px solid var(--line);}
+  .role:last-child{border-bottom:1px solid var(--line);}
+  .role-meta{font-family:var(--font-mono); font-size:12px; color:var(--slate);}
+  .role h3{font-size:19px; font-weight:500; margin-bottom:4px;}
+  .role .org{color:var(--teal); font-size:14px; margin-bottom:12px;}
+  .role ul{margin:0; padding-left:18px; color:var(--slate); font-size:14.5px;}
+  .role li{margin-bottom:6px;}
+  @media (max-width:700px){.role{grid-template-columns:1fr; gap:6px;}}
+
+  /* ---------- PUBLICATIONS ---------- */
+  .pub-list{list-style:none; margin:0; padding:0; counter-reset:pub;}
+  .pub-item{counter-increment:pub; display:grid; grid-template-columns:44px 1fr; gap:18px; padding:18px 0; border-top:1px solid var(--line); font-size:14.5px;}
+  .pub-item:last-child{border-bottom:1px solid var(--line);}
+  .pub-item::before{content:counter(pub, decimal-leading-zero); font-family:var(--font-mono); color:var(--slate); font-size:13px; padding-top:2px;}
+  .pub-title{color:var(--ink); font-weight:500;}
+  .pub-meta{color:var(--slate); margin-top:4px; font-size:13.5px;}
+  .pub-item a{color:var(--teal); text-decoration:none; font-family:var(--font-mono); font-size:12.5px; border-bottom:1px solid transparent;}
+  .pub-item a:hover{border-color:var(--teal);}
+  .pub-note{margin-top:22px; font-size:13.5px; color:var(--slate);}
+
+  /* ---------- AWARDS ---------- */
+  .award-list{list-style:none; margin:0; padding:0;}
+  .award-item{padding:18px 0; border-top:1px solid var(--line); display:grid; grid-template-columns:100px 1fr; gap:20px;}
+  .award-list li:last-child{border-bottom:1px solid var(--line);}
+  .award-yr{font-family:var(--font-mono); font-size:12.5px; color:var(--gold);}
+  .award-title{font-size:15px;}
+  .award-media{margin-top:10px; display:flex; gap:14px; flex-wrap:wrap;}
+  .award-media a{font-family:var(--font-mono); font-size:12px; color:var(--teal); text-decoration:none; border-bottom:1px solid var(--line);}
+  .award-media a:hover{border-color:var(--teal);}
+  @media (max-width:600px){.award-item{grid-template-columns:1fr;}}
+
+  /* ---------- DOWNLOADS ---------- */
+  .dl-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .dl-card{border:1px solid var(--line); border-radius:6px; padding:28px; background:var(--paper);}
+  .dl-card .tag{font-family:var(--font-mono); font-size:11px; color:var(--teal); letter-spacing:.06em;}
+  .dl-card h3{margin-top:10px; font-size:20px; font-weight:500;}
+  .dl-card p{color:var(--slate); font-size:14px; margin-top:8px;}
+  .dl-card .btn{margin-top:18px;}
+  @media (max-width:640px){.dl-grid{grid-template-columns:1fr;}}
+
+  /* ---------- CONNECT / FOOTER ---------- */
+  footer{background:var(--ink); color:var(--paper); padding:70px 0 40px;}
+  .connect-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:14px;}
+  .connect-item{
+    border:1px solid var(--line-dark); border-radius:5px; padding:18px 14px;
+    text-decoration:none; color:var(--paper); transition:.15s;
+  }
+  .connect-item:hover{border-color:var(--teal-bright); background:rgba(46,156,146,0.08);}
+  .connect-item .k{font-family:var(--font-mono); font-size:10.5px; color:var(--teal-bright); letter-spacing:.06em; text-transform:uppercase;}
+  .connect-item .v{font-size:13.5px; margin-top:6px; word-break:break-word;}
+  @media (max-width:900px){.connect-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:560px){.connect-grid{grid-template-columns:repeat(2,1fr);}}
+  .foot-bottom{margin-top:48px; padding-top:24px; border-top:1px solid var(--line-dark); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-family:var(--font-mono); font-size:12px; color:rgba(239,235,225,0.55);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:none;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-row">
+    <div class="nav-name">Salem&nbsp;Werdyani</div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#focus">Research</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#downloads">CV</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="hero-scatter" viewBox="0 0 1120 520" preserveAspectRatio="none" aria-hidden="true">
+    <!-- ambient Manhattan-plot style scatter -->
+    <g fill="#2E9C92" opacity="0.55"></g>
+    <line x1="0" y1="120" x2="1120" y2="120" stroke="#B2392B" stroke-width="1" stroke-dasharray="4 5" opacity="0.5"/>
+  </svg>
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow">Human Genetics&nbsp;&middot;&nbsp;Bioinformatics&nbsp;&middot;&nbsp;Statistical Genomics&nbsp;&middot;&nbsp;Multi-Omics</p>
+      <h1>Salem<br>Werd<em>y</em>ani, Ph.D.</h1>
+      <p class="hero-role">Lead Scientist, The University of Chicago</p>
+      <p class="hero-tagline">I build statistical and machine-learning models that trace complex disease and treatment-response signal from genome to phenotype, integrating GWAS, WES/WGS, and single-cell data into findings that move toward the clinic.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="assets/Salem_Werdyani_Full_CV.pdf" target="_blank" rel="noopener">Download Full CV</a>
+        <a class="btn btn-ghost" href="assets/Salem_Werdyani_Short_CV.pdf" target="_blank" rel="noopener">Download Short CV</a>
+      </div>
+      <div class="hero-links">
+        <a href="https://orcid.org/0000-0002-8489-507X" target="_blank" rel="noopener">ORCID ↗</a>
+        <a href="https://www.linkedin.com/in/salem-werdyani-53323b114/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://www.researchgate.net/profile/Salem-Werdyani?ev=hdr_xprf" target="_blank" rel="noopener">ResearchGate ↗</a>
+        <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&user=WSZPzS4AAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
+        <a href="https://github.com/SalemWerdyani" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <img src="assets/headshot.jpg" alt="Portrait of Salem Werdyani, Ph.D.">
+    </div>
+  </div>
+</section>
+
+<section id="locus" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">A map of the work</p>
+      <h2>Career locus map</h2>
+      <p>A broad experience in utilizing multidisciplinary methodology spanning the wet-lab, population-scale and biobank datasets, and computational frameworks can be viewed as a continuum, with each stage representing a distinct locus along a trajectory of scientific discovery.</p>
+    </div>
+    <div class="locus-grid" id="locusGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</section>
+
+<section id="focus" class="alt reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Research interest</p>
+      <h2>A multidisciplinary approach</h2>
+      <p>How do genetic variations shape disease susceptibility, progression, and therapeutic response, and how can these genomic signals be leveraged to guide precision medicine?</p>
+    </div>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="tag">01 · Genetics</div>
+        <h3>Human Genetics</h3>
+        <p>GWAS, WES/WGS, and single-cell RNA-seq data analysis to identify genetic architecture underlying complex diseases, from osteoarthritis to hearing loss to hereditary cancer.</p>
+      </div>
+      <div class="focus-card">
+        <div class="tag">02 · Computation</div>
+        <h3>Bioinformatics &amp; AI</h3>
+        <p>Machine and deep learning models,  from Random Forest to TensorFlow and JAX, built to prioritize and functionally annotate variants at scale.</p>
+      </div>
+      <div class="focus-card">
+        <div class="tag">03 · Inference</div>
+        <h3>Statistical Genomics</h3>
+        <p>Polygenic risk scoring (PRS) analyses, fine-mapping (SuSiE, FINEMAP), and causal inference eQTL (cTWAS) to move from association to candidate causal gene.</p>
+      </div>
+      <div class="focus-card">
+        <div class="tag">04 · Integration</div>
+        <h3>Multi-Omics analyses</h3>
+        <p>Integrating genomic, transcriptomic, single-cell RNA-seq data, proteomic, and metabolomic data with clinical outcomes for patient stratification and precision medicine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Research Journey</p>
+      <h2>Academic & Research Appointments</h2>
+    </div>
+
+    <div class="role">
+      <div class="role-meta">MAY 2026, PRESENT<br>Chicago, IL</div>
+      <div>
+        <h3>Lead Scientist</h3>
+        <div class="org">IPPH · The University of Chicago</div>
+        <ul>
+          <li>Lead interdisciplinary research programs spanning human genetics, bioinformatics, statistical genomics, and multi-omics analysis.</li>
+          <li>Design and oversee scalable computational workflows for genomic, transcriptomic, epigenomic, proteomic, metabolomic, and single-cell RNA-seq data.</li>
+          <li>Lead multidisciplinary teams of scientists, bioinformaticians, statisticians, clinicians, and trainees.</li>
+          <li>Secure competitive research funding and translate genomic discoveries into diagnostic, prognostic, and therapeutic applications.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="role-meta">FEB 2024, PRESENT<br>Chicago, IL</div>
+      <div>
+        <h3>Postdoctoral Fellow</h3>
+        <div class="org">Khan Lab, Faculty of Medicine · The University of Chicago</div>
+        <ul>
+          <li>Led research on germline genetic influences on CAR T-cell therapy outcomes using a clinico-genomic DLBCL cohort from the UChicago Biobank.</li>
+          <li>Implemented polygenic risk score analyses linking inherited variants, CAR T-cell response, and autoimmune traits (PGS Catalog, LDpred2).</li>
+          <li>Applied SuSiE/FINEMAP fine-mapping and cTWAS eQTL approaches to identify candidate causal genes for poor CAR T-cell outcomes.</li>
+          <li>Ran unsupervised Leiden clustering and PAGA trajectory inference on 100K+ single cells, uncovering a novel rare T-cell subtype implicated in CAR T-cell resistance.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="role-meta">2018, 2023<br>St. John's, NL</div>
+      <div>
+        <h3>Ph.D. Researcher</h3>
+        <div class="org">Zhai Lab, Faculty of Medicine · Memorial University of Newfoundland</div>
+        <ul>
+          <li>Used GWAS, WGS, and WES analyses to identify genetic factors in osteoarthritis progression and joint-replacement outcomes.</li>
+          <li>Ran large-scale metabolomics analysis to define osteoarthritis endotypes and identify biomarkers of muscle-strength decline over 10 years.</li>
+          <li>Presented findings at Canadian Orthopedic Association, OARSI, and ASHG meetings.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="role-meta">2012, 2016<br>St. John's, NL</div>
+      <div>
+        <h3>M.Sc. Researcher</h3>
+        <div class="org">Savas Lab, Faculty of Medicine · Memorial University of Newfoundland</div>
+        <ul>
+          <li>Computational prediction and analysis of CNV profiles in colorectal cancer patients using genome-wide SNP genotyping.</li>
+          <li>Built statistical and QC pipelines to improve CNV detection accuracy, and mapped disrupted pathways associated with predicted CNVs.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="publications" class="alt reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Publications</p>
+      <h2>Peer-reviewed work</h2>
+      <p>Eleven peer-reviewed papers spanning colorectal cancer genetics, hereditary breast and ovarian cancer, hereditary hearing loss, osteoarthritis genomics and metabolomics, and CAR T-cell immunotherapy outcome, efficacy, and safety . Full record on <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&user=WSZPzS4AAAAJ" target="_blank" rel="noopener" style="color:var(--teal);">Google Scholar ↗</a>.</p>
+    </div>
+    <ol class="pub-list" id="pubList"></ol>
+    <p class="pub-note">* denotes shared first authorship. A complete list of oral and poster presentations is available in the full CV.</p>
+  </div>
+</section>
+
+<section id="awards" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Awards &amp; recognition</p>
+      <h2>Awards &amp; scholarships</h2>
+    </div>
+    <ul class="award-list" id="awardList"></ul>
+  </div>
+</section>
+
+<section id="downloads" class="alt reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Curriculum vitae</p>
+      <h2>Two ways to read the record</h2>
+    </div>
+    <div class="dl-grid">
+      <div class="dl-card">
+        <div class="tag">Complete</div>
+        <h3>Full CV</h3>
+        <p>Every position, publication, presentation, award, and certification, the full research record.</p>
+        <a class="btn btn-primary" style="background:var(--teal); color:#fff;" href="assets/Salem_Werdyani_Full_CV.pdf" target="_blank" rel="noopener">Download PDF ↓</a>
+      </div>
+      <div class="dl-card">
+        <div class="tag">Condensed</div>
+        <h3>Short CV</h3>
+        <p>A one-page-per-section summary for quick reference, carrying a QR code back to this site.</p>
+        <a class="btn btn-primary" style="background:var(--teal); color:#fff;" href="assets/Salem_Werdyani_Short_CV.pdf" target="_blank" rel="noopener">Download PDF ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="connect">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--teal-bright);">Get in touch</p>
+    <h2 style="color:var(--paper); font-size:clamp(24px,3vw,32px); margin-top:10px;">Connect &amp; find the full record</h2>
+    <div class="connect-grid" style="margin-top:34px;">
+      <a class="connect-item" href="mailto:swerdyani@uchicago.edu"><div class="k">Email</div><div class="v">swerdyani@uchicago.edu</div></a>
+      <a class="connect-item" href="tel:+12105400638"><div class="k">Phone</div><div class="v">+1 (210) 540-0638</div></a>
+      <a class="connect-item" href="https://orcid.org/0000-0002-8489-507X" target="_blank" rel="noopener"><div class="k">ORCID</div><div class="v">0000-0002-8489-507X</div></a>
+      <a class="connect-item" href="https://www.linkedin.com/in/salem-werdyani-53323b114/" target="_blank" rel="noopener"><div class="k">LinkedIn</div><div class="v">salem-werdyani</div></a>
+      <a class="connect-item" href="https://www.researchgate.net/profile/Salem-Werdyani?ev=hdr_xprf" target="_blank" rel="noopener"><div class="k">ResearchGate</div><div class="v">Salem-Werdyani</div></a>
+      <a class="connect-item" href="https://scholar.google.com/citations?hl=en&view_op=list_works&user=WSZPzS4AAAAJ" target="_blank" rel="noopener"><div class="k">Google Scholar</div><div class="v">View profile</div></a>
+      <a class="connect-item" href="https://github.com/SalemWerdyani" target="_blank" rel="noopener"><div class="k">GitHub</div><div class="v">SalemWerdyani</div></a>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Salem Werdyani, The University of Chicago.</span>
+      <span>Chicago, IL</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// nav toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', false);
+}));
+
+// reveal on scroll
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+}
+
+// ambient hero scatter (deterministic pseudo-random Manhattan-plot look)
+(function(){
+  const g = document.querySelector('.hero-scatter g');
+  let seed = 42;
+  function rnd(){ seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  let svg = '';
+  const chromBands = 9;
+  const bandW = 1120 / chromBands;
+  for (let c = 0; c < chromBands; c++){
+    const n = 26;
+    const peak = rnd() > 0.5;
+    for (let i = 0; i < n; i++){
+      const x = c * bandW + rnd() * bandW;
+      let y;
+      if (peak && rnd() > 0.72){
+        y = 60 + rnd() * 50; // taller peak points near top
+      } else {
+        y = 150 + rnd() * 340;
+      }
+      const r = 2 + rnd() * 1.6;
+      svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" />`;
+    }
+  }
+  g.innerHTML = svg;
+})();
+
+// career locus map
+(function(){
+  const milestones = [
+    { yr: 1998, lbl: 'B.Sc. Biology, UAE University' },
+    { yr: 2011, lbl: 'PG Certificate, Bioinformatics' },
+    { yr: 2016, lbl: 'M.Sc., Human Genetics' },
+    { yr: 2023, lbl: 'Ph.D., Human Genetics' },
+    { yr: 2024, lbl: 'Postdoctoral Fellow, Khan Lab' },
+    { yr: 2026, lbl: 'Lead Scientist, IPPH · UChicago' }
+  ];
+  const container = document.getElementById('locusGrid');
+
+  let html = '';
+  milestones.forEach((m, i) => {
+    const commaIdx = m.lbl.indexOf(',');
+    const title = commaIdx > -1 ? m.lbl.slice(0, commaIdx).trim() : m.lbl;
+    const detail = commaIdx > -1 ? m.lbl.slice(commaIdx + 1).trim() : '';
+    const num = String(i + 1).padStart(2, '0');
+    html += `<div class="locus-card">
+      <div class="tag">${num} &middot; ${m.yr}</div>
+      <h3>${title}</h3>
+      ${detail ? `<p>${detail}</p>` : ''}
+    </div>`;
+  });
+  container.innerHTML = html;
+})();
+
+// publications
+(function(){
+  const pubs = [
+    { t: "Association of Germline Genetic Variants with CAR T-Cell Therapy Outcomes in B-Cell Malignancies", a: "Werdyani S, Sun X, Zha Y, Riedell P, Kline J, He X, Khan AA.", j: "In preparation." },
+    { t: "Genetic Variants of the Beta-Adrenergic Receptor Pathways as Both Risk and Protective Factors for Retinopathy of Prematurity", a: "Paradis H*, Werdyani S*, Zhai G, Gendron RL, Tabrizchi R, McGovern M, Jumper M, Brinton D, Good WV.", j: "Am. J. Ophthalmology, 2024, 263, 179–187. *shared first authors" },
+    { t: "Highly Variable Hearing Loss Due to POU4F3 (c.37del) Is Revealed by Longitudinal, Frequency-Specific Analyses", a: "Singh S*, Penney C*, Griffin A, Woodland G, Werdyani S, et al.", j: "European Journal of Human Genetics, accepted. *shared first authors" },
+    { t: "Autosomal Dominant Non-Syndromic Hearing Loss Maps to DFNA33 (13q34) and Co-Segregates with Splice Site Variants in ATP11A, A Phospholipid Flippase Gene", a: "Pater J, Penney C, O'Rielly D, Griffin A, Shohat M, Bare O, French CR, Singh S, Werdyani S, et al.", j: "Human Genetics, 2021.", doi: "10.1007/s00439-022-02444-x", pmid: "35278131" },
+    { t: "Metabolomic Signatures for the Longitudinal Reduction of Muscle Strength over 10 Years", a: "Werdyani S, Aitken D, Gao Z, Liu M, Randell EW, Rahman P, Jones G, Zhai G.", j: "Under review, BMC Skeletal Muscle.", doi: "10.1186/s13395-022-00286-9", pmid: "35130970" },
+    { t: "A Comprehensive Analysis of SNPs and CNVs Identifies Novel Markers Associated with Disease Outcomes in Colorectal Cancer", a: "Yu Y, Werdyani S, Carey M, Parfrey P, Yilmaz YE, Savas S.", j: "Molecular Oncology, 2021.", doi: "10.1002/1878-0261.13067", pmid: "34309201" },
+    { t: "Endotypes of Primary Osteoarthritis Identified by Plasma Metabolomics Analysis", a: "Werdyani S, Liu M, Zhang H, Sun G, Furey A, Randell EW, Rahman P, Zhai G.", j: "Rheumatology (Oxford), 2020.", doi: "10.1093/rheumatology/keaa693", pmid: "33159799" },
+    { t: "A Dominant RAD51C Pathogenic Splicing Variant Predisposes to Breast and Ovarian Cancer in the Newfoundland Population Due to Founder Effect", a: "Dawson LM*, Smith KN*, Werdyani S, Ndikumana R, Penney C, Wiede LL, Smith KL, Pater JA, Drover S, Young TL, O'Rielly DD.", j: "Molecular Genetics and Genomic Medicine, 2019. *shared first authors", doi: "10.1002/mgg3.1070", pmid: "31782267" },
+    { t: "Germline INDELs and CNVs in a Cohort of Colorectal Cancer Patients: Their Characteristics, Associations with Relapse-Free Survival Time, and Potential Time-Varying Effects on the Risk of Relapse", a: "Werdyani S, Yu Y, Skardasi G, Xu J, Shestopaloff K, Xu W, Dicks E, Green J, Parfrey P, Yilmaz YE, Savas S.", j: "Cancer Medicine, 2017.", doi: "10.1002/cam4.1074", pmid: "28544645" },
+    { t: "No Associations of a Set of SNPs in the Vascular Endothelial Growth Factor (VEGF) and Matrix Metalloproteinase (MMP) Genes with Survival of Colorectal Cancer Patients", a: "Dan L, Werdyani S, Xu J, Shestopaloff K, Hyde A, Dicks E, Younghusband B, Green J, Parfrey P, Xu W, Savas S.", j: "Cancer Medicine, 2016.", doi: "10.1002/cam4.796", pmid: "27334288" },
+    { t: "A Survival Association Study of 102 Polymorphisms Previously Associated with Survival Outcomes in Colorectal Cancer", a: "Savas S, Xu J, Werdyani S, Shestopaloff K, Dicks E, Green J, Parfrey P, Green R, Xu W.", j: "BioMed Research International, 2015.", doi: "10.1155/2015/968743", pmid: "26064972" }
+  ];
+  const list = document.getElementById('pubList');
+  list.innerHTML = pubs.map(p => `
+    <li class="pub-item">
+      <div>
+        <div class="pub-title">${p.t}</div>
+        <div class="pub-meta">${p.a}</div>
+        <div class="pub-meta">${p.j}${p.pmid ? ' &middot; PMID: '+p.pmid : ''}</div>
+        ${p.doi ? `<a href="https://doi.org/${p.doi}" target="_blank" rel="noopener">doi.org/${p.doi} ↗</a>` : ''}
+      </div>
+    </li>`).join('');
+})();
+
+// awards
+(function(){
+  const awards = [
+    { yr: '2022', t: 'The Top Canadian Researchers Award, Canadian Orthopedic Association Annual Meeting, June 8–11, 2022, Quebec City, Canada.' },
+    { yr: '2021', t: 'Canadian Arthritis Society Top 10 Research Advances of 2021, for "Endotypes of primary osteoarthritis identified by plasma metabolomics analysis."', media: [
+      { l: 'Arthritis Society, Research', u: 'https://arthritis.ca/about-us/what-we-do/research/' },
+      { l: 'MUN Gazette, Personalized Treatment', u: 'https://gazette.mun.ca/research/personalized-treatment/' },
+      { l: 'Top 10 Research Advances of 2021 (video)', u: 'https://youtu.be/J867YdAnd0g' },
+      { l: 'Education News Canada', u: 'https://educationnewscanada.com/article/education/level/university/1/940771/genetics-team-named-to-national-top-10-list-for-arthritis-research-.html' }
+    ]},
+    { yr: '2020', t: 'Division of Biomedical Sciences (Genetics) Research Forum Award, May 2020.' },
+    { yr: '2019–22', t: 'Canadian Arthritis Society Ph.D. Salary Award, three years.' },
+    { yr: '2019', t: 'Canadian Connective Tissue Conference (CCTC 2019) Travel Award, May 29–31, 2019, McGill University, Montréal, Québec, Canada.', media: [
+      { l: 'CCTC 2019 Awards', u: 'https://connective-tissue-canada.com/past-conferences/cctc-2019/awards/' }
+    ]},
+    { yr: '2018', t: 'Howard Hughes Medical Institute Scholarship, 59th McKusick Short Course, Jackson Laboratory, Bar Harbor, Maine, USA.' },
+    { yr: '2015', t: 'Terry Fox Research Institute (TFRI) and Beatrice Hunter Cancer Research Institute (BHCRI) Travel Bursary.' },
+    { yr: '2015', t: 'Canadian Institutes of Health Research (CIHR) and Institute Community Support (ICS) Travel Award.' },
+    { yr: '2013–14', t: 'First inaugural MGSS Graduate Travel Award in Medicine, Memorial University of Newfoundland.' }
+  ];
+  const list = document.getElementById('awardList');
+  list.innerHTML = awards.map(a => `
+    <li class="award-item">
+      <div class="award-yr">${a.yr}</div>
+      <div>
+        <div class="award-title">${a.t}</div>
+        ${a.media ? `<div class="award-media">${a.media.map(m => `<a href="${m.u}" target="_blank" rel="noopener">${m.l} ↗</a>`).join('')}</div>` : ''}
+      </div>
+    </li>`).join('');
+})();
+</script>
+</body>
+</html>
