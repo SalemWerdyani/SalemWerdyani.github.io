@@ -131,10 +131,10 @@
 
   /* ---------- LOCUS MAP (career timeline) ---------- */
   .locus-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
-  .locus-card{background:var(--paper); padding:30px 26px;}
-  .locus-card .tag{font-family:var(--font-mono); font-size:11px; color:var(--crimson); letter-spacing:.06em;}
-  .locus-card h3{font-size:19px; margin-top:12px; font-weight:500;}
-  .locus-card p{color:var(--slate); font-size:14.5px; margin-top:10px;}
+  .locus-card{background:var(--paper); padding:18px 16px;}
+  .locus-card .tag{font-family:var(--font-mono); font-size:10px; color:var(--crimson); letter-spacing:.06em;}
+  .locus-card h3{font-size:15px; margin-top:8px; font-weight:500; line-height:1.3;}
+  .locus-card p{color:var(--slate); font-size:12.5px; margin-top:6px; line-height:1.4;}
   @media (max-width:900px){.locus-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:560px){.locus-grid{grid-template-columns:1fr;}}
 
@@ -260,7 +260,7 @@
     <div class="section-head">
       <p class="eyebrow">A map of the work</p>
       <h2>Career locus map</h2>
-      <p>A broad experience spanning the wet-lab, population-scale and biobank datasets, and computational frameworks, each milestone below marks a distinct locus in that multidisciplinary training.</p>
+      <p>A broad experience in utilizing multidisciplinary methodology spanning the wet-lab, population-scale and biobank datasets, and computational frameworks can be viewed as a continuum, with each stage representing a distinct locus along a trajectory of scientific discovery.</p>
     </div>
     <div class="locus-grid" id="locusGrid">
       <!-- populated by JS -->
@@ -482,12 +482,12 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
 // career locus map
 (function(){
   const milestones = [
-    { yr: 1998, lbl: 'B.Sc. Biology, UAE University' },
-    { yr: 2011, lbl: 'Postgraduate Certificate, Bioinformatics' },
-    { yr: 2016, lbl: 'M.Sc., Human Genetics' },
-    { yr: 2023, lbl: 'Ph.D., Human Genetics' },
-    { yr: 2024, lbl: 'Postdoctoral Fellow, Khan Lab' },
-    { yr: 2026, lbl: 'Lead Scientist, IPPH · UChicago' }
+    { yr: 1998, lbl: 'B.Sc. Biology, UAE University, Al Ain, UAE' },
+    { yr: 2011, lbl: 'Postgraduate Certificate, Bioinformatics, Centennial College, Toronto, Canada' },
+    { yr: 2016, lbl: 'M.Sc. in Medicine, Human Genetics, Memorial University of Newfoundland, Newfoundland, Canada' },
+    { yr: 2023, lbl: 'Ph.D. in Medicine, Human Genetics, Memorial University of Newfoundland, Newfoundland, Canada' },
+    { yr: 2024, lbl: 'Postdoctoral Fellow, Khan Lab, Family Medicine Department, UChicago, Chicago, USA' },
+    { yr: 2026, lbl: 'Lead Scientist, IPPH · UChicago, Chicago, USA' }
   ];
   const container = document.getElementById('locusGrid');
 
